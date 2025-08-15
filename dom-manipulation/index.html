@@ -8,31 +8,29 @@
 <body>
   <h1>Dynamic Quote Generator</h1>
 
-  <!-- Notification area -->
-  <div id="notification" style="color: red; font-weight: bold;"></div>
+  <!-- Display the quote -->
+  <div id="quoteDisplay"></div>
 
-  <!-- Category filter dropdown -->
-  <label for="categoryFilter">Filter by Category: </label>
-  <select id="categoryFilter">
+  <!-- Show new random quote -->
+  <button id="newQuote">Show New Quote</button>
+
+  <!-- Add a new quote -->
+  <input type="text" id="newQuoteText" placeholder="Enter new quote">
+  <input type="text" id="newQuoteCategory" placeholder="Enter category">
+  <button onclick="addQuote()">Add Quote</button>
+
+  <!-- Filter quotes by category -->
+  <select id="categoryFilter" onchange="filterQuotes()">
     <option value="all">All Categories</option>
   </select>
 
-  <!-- Quote display -->
-  <div id="quoteDisplay"></div>
+  <!-- Import/Export JSON -->
+  <input type="file" id="importFile" accept=".json">
+  <button onclick="exportToJsonFile()">Export Quotes</button>
 
-  <!-- Buttons -->
-  <button id="newQuote">Show New Quote</button>
-  <button id="syncNow">Sync Now</button> <!-- NEW -->
-  <div id="notification" style="color: red; font-weight: bold;"></div>
-<div id="logContainer" style="margin-top: 10px; border: 1px solid #ccc; padding: 5px; max-height: 150px; overflow-y: auto;">
-  <strong>Sync Log:</strong>
-</div>
+  <!-- Notifications -->
+  <div id="notification" style="color: green;"></div>
 
-
-  <!-- Form container -->
-  <div id="formContainer"></div>
-
-  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
