@@ -7,32 +7,32 @@ let quotes = [
 ];
 
 // Load from localStorage if available
-if(localStorage.getItem('quotes')) {
+if (localStorage.getItem('quotes')) {
   quotes = JSON.parse(localStorage.getItem('quotes'));
 }
 
-// Get last selected category filter
-let lastCategory = localStorage.getItem('lastCategory') || 'all';
+// Get last selected category
+let lastSelectedCategory = localStorage.getItem('selectedCategory') || 'all';
 
-// Display a random quote (filtered by category)
+// Display a random quote
 function displayRandomQuote() {
-  let category = document.getElementById('categoryFilter').value || 'all';
-  let filteredQuotes = category === 'all' ? quotes : quotes.filter(q => q.category === category);
-  if(filteredQuotes.length === 0) {
+  const selectedCategory = document.getElementById('categoryFilter').value;
+  let filteredQuotes = selectedCategory === 'all' ? quotes : quotes.filter(q => q.category === selectedCategory);
+  if (filteredQuotes.length === 0) {
     document.getElementById('quoteDisplay').innerText = "No quotes available in this category.";
     return;
   }
-  let randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+  const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
   document.getElementById('quoteDisplay').innerText = filteredQuotes[randomIndex].text;
 }
 
 // Add a new quote
 function addQuote() {
-  let textInput = document.getElementById('newQuoteText').value.trim();
-  let categoryInput = document.getElementById('newQuoteCategory').value.trim();
-  if(textInput === "" || categoryInput === "") return;
+  const text = document.getElementById('newQuoteText').value.trim();
+  const category = document.getElementById('newQuoteCategory').value.trim();
+  if (text === "" || category === "") return;
 
-  quotes.push({ text: textInput, category: categoryInput });
+  quotes.push({ text, category });
   saveQuotes();
   populateCategories();
   displayRandomQuote();
@@ -40,13 +40,13 @@ function addQuote() {
   document.getElementById('newQuoteCategory').value = '';
 }
 
-// Save quotes and last category to localStorage
+// Save quotes and selected category
 function saveQuotes() {
   localStorage.setItem('quotes', JSON.stringify(quotes));
-  localStorage.setItem('lastCategory', document.getElementById('categoryFilter').value);
+  localStorage.setItem('selectedCategory', document.getElementById('categoryFilter').value);
 }
 
-// Create the form for adding quotes
+// Create add quote form
 function createAddQuoteForm() {
   const container = document.getElementById('formContainer');
   container.innerHTML = `
@@ -56,24 +56,28 @@ function createAddQuoteForm() {
   `;
 }
 
-// Populate category dropdown dynamically
+// Populate category dropdown with unique categories
 function populateCategories() {
   const select = document.getElementById('categoryFilter');
-  let categories = [...new Set(quotes.map(q => q.category))];
   select.innerHTML = '<option value="all">All Categories</option>';
+  const categories = [];
+  quotes.forEach(q => {
+    if (!categories.includes(q.category)) {
+      categories.push(q.category);
+    }
+  });
   categories.forEach(cat => {
-    let option = document.createElement('option');
+    const option = document.createElement('option');
     option.value = cat;
     option.text = cat;
     select.appendChild(option);
   });
-  // Restore last selected category
-  select.value = lastCategory;
+  select.value = lastSelectedCategory;
 }
 
 // Filter quotes based on selected category
-function filterQuotes() {
-  lastCategory = document.getElementById('categoryFilter').value;
+function filterQuote() {
+  lastSelectedCategory = document.getElementById('categoryFilter').value;
   saveQuotes();
   displayRandomQuote();
 }
@@ -105,7 +109,10 @@ function importFromJsonFile(event) {
 // Event listener for "Show New Quote" button
 document.getElementById('newQuote').addEventListener('click', displayRandomQuote);
 
-// Initialize
+// Event listener for category filter
+document.getElementById('categoryFilter').addEventListener('change', filterQuote);
+
+// Initialize page
 createAddQuoteForm();
 populateCategories();
 displayRandomQuote();
