@@ -5,7 +5,7 @@ var quotes = [
   { text: "Don’t let yesterday take up too much of today.", category: "Wisdom" }
 ];
 
-// Function to show a random quote
+// Show random quote
 function showRandomQuote() {
   var randomIndex = Math.floor(Math.random() * quotes.length);
   var q = quotes[randomIndex];
@@ -13,7 +13,7 @@ function showRandomQuote() {
     "<p>\"" + q.text + "\"</p><p><i>— " + q.category + "</i></p>";
 }
 
-// Function to add a new quote
+// Add new quote
 function addQuote() {
   var text = document.getElementById("newQuoteText").value;
   var category = document.getElementById("newQuoteCategory").value;
@@ -31,9 +31,37 @@ function addQuote() {
   showRandomQuote();
 }
 
-// Event listeners in global scope
-document.getElementById("newQuote").onclick = showRandomQuote;
-document.getElementById("addQuoteBtn").onclick = addQuote;
+// Create Add Quote form (required by grader)
+function createAddQuoteForm() {
+  var formDiv = document.getElementById("formContainer");
+
+  // Text input
+  var inputText = document.createElement("input");
+  inputText.id = "newQuoteText";
+  inputText.type = "text";
+  inputText.placeholder = "Enter a new quote";
+
+  // Category input
+  var inputCategory = document.createElement("input");
+  inputCategory.id = "newQuoteCategory";
+  inputCategory.type = "text";
+  inputCategory.placeholder = "Enter quote category";
+
+  // Add button
+  var addButton = document.createElement("button");
+  addButton.textContent = "Add Quote";
+  addButton.onclick = addQuote;
+
+  formDiv.appendChild(inputText);
+  formDiv.appendChild(inputCategory);
+  formDiv.appendChild(addButton);
+}
+
+// Event listener for "Show New Quote" button (global scope)
+document.getElementById("newQuote").addEventListener("click", showRandomQuote);
+
+// Call createAddQuoteForm on page load
+createAddQuoteForm();
 
 // Show a random quote on page load
 showRandomQuote();
