@@ -14,25 +14,17 @@
   <!-- Show random quote -->
   <button id="newQuote">Show New Quote</button>
 
-  <!-- Add new quote -->
-  <h2>Add a New Quote</h2>
-  <input type="text" id="newQuoteText" placeholder="Enter quote" />
-  <input type="text" id="newQuoteCategory" placeholder="Enter category" />
-  <button onclick="addQuote()">Add Quote</button>
+  <!-- Add new quote (injected dynamically) -->
+  <div id="addQuoteContainer"></div>
 
   <!-- Category filter -->
   <h2>Filter Quotes by Category</h2>
-  <select id="categoryFilter" onchange="filterQuotes()">
+  <select id="categoryFilter" onchange="filterQuote()">
     <option value="all">All Categories</option>
   </select>
 
   <!-- Notification -->
   <div id="notification" style="display:none; color: green; margin-top: 10px;"></div>
-
-  <!-- Import/Export -->
-  <h2>Import/Export Quotes</h2>
-  <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
-  <button onclick="exportToJsonFile()">Export Quotes to JSON</button>
 
   <script src="script.js"></script>
 </body>
