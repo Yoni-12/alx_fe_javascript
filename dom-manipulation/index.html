@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
+  <title>Universal Dynamic Quote Generator</title>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
+  <h1>Universal Dynamic Quote Generator</h1>
 
-  <!-- Display a random or filtered quote -->
+  <!-- Display random quote -->
   <div id="quoteDisplay" style="margin-bottom: 20px; font-weight: bold;"></div>
 
-  <!-- Button to show a random quote -->
+  <!-- Show random quote -->
   <button id="newQuote">Show New Quote</button>
 
-  <!-- Add a new quote -->
+  <!-- Add new quote -->
   <h2>Add a New Quote</h2>
   <input type="text" id="newQuoteText" placeholder="Enter quote" />
   <input type="text" id="newQuoteCategory" placeholder="Enter category" />
@@ -22,14 +22,14 @@
 
   <!-- Category filter -->
   <h2>Filter Quotes by Category</h2>
-  <select id="categoryFilter" onchange="filterQuote()">
+  <select id="categoryFilter" onchange="filterQuotes()">
     <option value="all">All Categories</option>
   </select>
 
-  <!-- Notification area -->
+  <!-- Notification -->
   <div id="notification" style="display:none; color: green; margin-top: 10px;"></div>
 
-  <!-- JSON import/export -->
+  <!-- Import/Export -->
   <h2>Import/Export Quotes</h2>
   <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
   <button onclick="exportToJsonFile()">Export Quotes to JSON</button>
